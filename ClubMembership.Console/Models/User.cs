@@ -16,9 +16,15 @@ namespace ClubMembership.Console.Models
 
         public string EmailId { get; set; }
 
+        public string Password { get; set; }
+
+        public string ConfirmedPassword { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public string DateOfBirth { get; set; }
 
         public string PhoneNumber { get; set; }
 
