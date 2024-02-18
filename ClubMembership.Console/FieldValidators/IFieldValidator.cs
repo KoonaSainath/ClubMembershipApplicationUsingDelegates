@@ -11,5 +11,6 @@ namespace ClubMembership.Console.FieldValidators
     {
         DelValidateField DelValidateField { get; }
         string[] FieldArray { get; }
+        void InitializeDelegates();
     }
 }
