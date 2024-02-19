@@ -18,5 +18,10 @@ namespace ClubMembership.API
             string result = value.NullCheckTrim();
             return string.IsNullOrEmpty(result);
         }
+        public static string GetLowerCaseString(this string value)
+        {
+            string result = NullCheckTrim(value);
+            return result.ToLower();
+        }
     }
 }
