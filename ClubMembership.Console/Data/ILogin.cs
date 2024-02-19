@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClubMembership.Console.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace ClubMembership.Console.Data
 {
     public interface ILogin
     {
-        bool IsLoginSuccessful(string emailId, string password);
+        User GetUser(string emailId, string password);
     }
 }
