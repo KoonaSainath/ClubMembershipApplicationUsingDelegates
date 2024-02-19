@@ -13,5 +13,10 @@ namespace ClubMembership.API
             string result = string.IsNullOrEmpty(value) ? string.Empty : value.Trim();
             return result;
         }
+        public static bool IsEmpty(this string value)
+        {
+            string result = value.NullCheckTrim();
+            return string.IsNullOrEmpty(result);
+        }
     }
 }
