@@ -36,6 +36,7 @@ namespace ClubMembership.Console.Views
             {
                 ConsoleThemes.SetTheme(ConsoleTheme.Failure);
                 ConsoleWriters.WriteToConsoleWithNewLine("The user with this email id and password doesn't exist");
+                ConsoleThemes.SetTheme(ConsoleTheme.Default);
                 System.Console.ReadKey();
             }
         }
