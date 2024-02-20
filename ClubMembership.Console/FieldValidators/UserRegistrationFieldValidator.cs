@@ -1,5 +1,6 @@
 ﻿using ClubMembership.API;
 using ClubMembership.Console.Constants;
+using ClubMembership.Console.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,11 @@ namespace ClubMembership.Console.FieldValidators
         private DelDoesEmailIdAlreadyExist delDoesEmailIdAlreadyExist;
 
         delegate bool DelDoesEmailIdAlreadyExist(string emailId);
+        private IRegister register;
+        public UserRegistrationFieldValidator(IRegister register)
+        {
+            this.register = register;
+        }
 
         //override
         public DelValidateField DelValidateField
@@ -56,6 +62,8 @@ namespace ClubMembership.Console.FieldValidators
             this.delValidateRegexPatternField = AllValidatorDelegates.DelValidateRegexPatternForField;
             this.delValidateDateField = AllValidatorDelegates.DelValidateDateField;
             this.delValidateFieldComparision = AllValidatorDelegates.DelValidateFieldComparision;
+
+            this.delDoesEmailIdAlreadyExist = new DelDoesEmailIdAlreadyExist(this.register.DoesEmailIdAlreadyExist);
         }
 
         public bool ValidateField(int fieldIndex, string fieldValue, string[] fieldArray, out string errorMessage)
@@ -69,6 +77,7 @@ namespace ClubMembership.Console.FieldValidators
                 case UserRegistrationField.EmailId:
                     errorMessage = !this.delValidateRequiredField(fieldValue) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} is required" : string.Empty;
                     errorMessage = (errorMessage.IsEmpty() && !this.delValidateRegexPatternField(fieldValue, RegularExpressionPatternConstants.EmailIdRegexPattern)) ? $"Invalid email id for field: {Enum.GetName<UserRegistrationField>(userRegistrationField)}" : string.Empty;
+                    errorMessage = (errorMessage.IsEmpty() && !this.delDoesEmailIdAlreadyExist(fieldValue)) ? $"The entered email id: {fieldValue} is already registered with the cycling club membership!" : string.Empty;
                     break;
                 case UserRegistrationField.Password:
                     errorMessage = !this.delValidateRequiredField(fieldValue) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} is required" : string.Empty;
