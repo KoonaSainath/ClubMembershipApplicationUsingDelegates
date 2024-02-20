@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ClubMembership.Console.Views
 {
-    public class ViewFactory
+    public static class ViewFactory
     {
-        public IView GetMainViewInstance()
+        public static IView GetMainViewInstance()
         {
             IRegister register = new Register();
             IFieldValidator userRegistrationValidator = new UserRegistrationFieldValidator(register);
