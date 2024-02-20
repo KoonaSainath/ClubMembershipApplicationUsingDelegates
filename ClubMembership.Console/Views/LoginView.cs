@@ -30,7 +30,8 @@ namespace ClubMembership.Console.Views
             User user = login.GetUser(emailId, password);
             if(user != null)
             {
-                //TODO: Run the WelcomeScreen view
+                IView welcomeScreenView = new WelcomeScreenView(user);
+                welcomeScreenView.RunTheView();
             }
             else
             {
