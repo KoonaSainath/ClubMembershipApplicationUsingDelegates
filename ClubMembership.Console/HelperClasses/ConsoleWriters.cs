@@ -40,14 +40,29 @@ namespace ClubMembership.Console.HelperClasses
         public static void WriteHeading()
         {
             System.Console.WriteLine(Heading);
+            System.Console.WriteLine();
         }
         public static void WriteRegistration()
         {
             System.Console.WriteLine(Registration);
+            System.Console.WriteLine();
         }
         public static void WriteLogin()
         {
             System.Console.WriteLine(Login);
+            System.Console.WriteLine();
+        }
+        public static void ClearConsole()
+        {
+            System.Console.Clear();
+        }
+        public static void WriteToConsoleWithoutNewLine(string message)
+        {
+            System.Console.Write(message);
+        }
+        public static void WriteToConsoleWithNewLine(string message)
+        {
+            System.Console.WriteLine(message);
         }
     }
 }
