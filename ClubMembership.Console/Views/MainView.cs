@@ -19,20 +19,21 @@ namespace ClubMembership.Console.Views
         }
         public IFieldValidator FieldValidator => null;
 
-        public void RunTheView()
+        public async Task RunTheView()
         {
             ConsoleWriters.ClearConsole();
-            ConsoleThemes.SetTheme(ConsoleTheme.Default);
+            await ConsoleThemes.SetTheme(ConsoleTheme.Default);
             ConsoleWriters.WriteHeading();
             ConsoleWriters.WriteToConsoleWithNewLine("Press 'l' to login or 'r' to register");
             ConsoleKey consoleKey = System.Console.ReadKey().Key;
+            ConsoleWriters.WriteToConsoleWithNewLine(string.Empty);
             if(consoleKey == ConsoleKey.L)
             {
-                this.loginView.RunTheView();
+                await this.loginView.RunTheView();
             }
             else if(consoleKey == ConsoleKey.R)
             {
-                this.registerView.RunTheView();
+                await this.registerView.RunTheView();
             }
             else
             {

@@ -10,6 +10,6 @@ namespace ClubMembership.Console.Views
     public interface IView
     {
         IFieldValidator FieldValidator { get; }
-        void RunTheView();
+        Task RunTheView();
     }
 }

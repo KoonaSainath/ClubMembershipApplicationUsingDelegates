@@ -76,27 +76,27 @@ namespace ClubMembership.Console.FieldValidators
             {
                 case UserRegistrationField.EmailId:
                     errorMessage = !this.delValidateRequiredField(fieldValue) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} is required" : string.Empty;
-                    errorMessage = (errorMessage.IsEmpty() && !this.delValidateRegexPatternField(fieldValue, RegularExpressionPatternConstants.EmailIdRegexPattern)) ? $"Invalid email id for field: {Enum.GetName<UserRegistrationField>(userRegistrationField)}" : string.Empty;
-                    errorMessage = (errorMessage.IsEmpty() && !this.delDoesEmailIdAlreadyExist(fieldValue)) ? $"The entered email id: {fieldValue} is already registered with the cycling club membership!" : string.Empty;
+                    errorMessage = (errorMessage.IsEmpty() && !this.delValidateRegexPatternField(fieldValue, RegularExpressionPatternConstants.EmailIdRegexPattern)) ? $"Invalid email id for field: {Enum.GetName<UserRegistrationField>(userRegistrationField)}" : errorMessage;
+                    errorMessage = (errorMessage.IsEmpty() && this.delDoesEmailIdAlreadyExist(fieldValue)) ? $"The entered email id is already registered with the cycling club membership!" : errorMessage;
                     break;
                 case UserRegistrationField.Password:
                     errorMessage = !this.delValidateRequiredField(fieldValue) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} is required" : string.Empty;
-                    errorMessage = (errorMessage.IsEmpty() && !this.delValidateRegexPatternField(fieldValue, RegularExpressionPatternConstants.PasswordRegexPattern) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} must contain minimum 8 and maximum 15 alphanumeric and special characters" : string.Empty);
+                    errorMessage = (errorMessage.IsEmpty() && !this.delValidateRegexPatternField(fieldValue, RegularExpressionPatternConstants.PasswordRegexPattern) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} must contain minimum 8 and maximum 15 alphanumeric and special characters" : errorMessage);
                     break;
                 case UserRegistrationField.ConfirmedPassword:
                     errorMessage = !this.delValidateFieldComparision(fieldValue, fieldArray[(int)UserRegistrationField.Password]) ? "The passwords didn't match" : string.Empty;
                     break;
                 case UserRegistrationField.FirstName:
                     errorMessage = !this.delValidateRequiredField(fieldValue) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} is required" : string.Empty;
-                    errorMessage = (errorMessage.IsEmpty() && !this.delValidateStringLength(fieldValue, NAME_MIN_LENGTH, NAME_MAX_LENGTH)) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} must contain minimum {NAME_MIN_LENGTH} characters and maximum {NAME_MAX_LENGTH} characters" : string.Empty;
+                    errorMessage = (errorMessage.IsEmpty() && !this.delValidateStringLength(fieldValue, NAME_MIN_LENGTH, NAME_MAX_LENGTH)) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} must contain minimum {NAME_MIN_LENGTH} characters and maximum {NAME_MAX_LENGTH} characters" : errorMessage;
                     break;
                 case UserRegistrationField.LastName:
                     errorMessage = !this.delValidateRequiredField(fieldValue) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} is required" : string.Empty;
-                    errorMessage = (errorMessage.IsEmpty() && !this.delValidateStringLength(fieldValue, NAME_MIN_LENGTH, NAME_MAX_LENGTH)) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} must contain minimum {NAME_MIN_LENGTH} characters and maximum {NAME_MAX_LENGTH} characters" : string.Empty;
+                    errorMessage = (errorMessage.IsEmpty() && !this.delValidateStringLength(fieldValue, NAME_MIN_LENGTH, NAME_MAX_LENGTH)) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} must contain minimum {NAME_MIN_LENGTH} characters and maximum {NAME_MAX_LENGTH} characters" : errorMessage;
                     break;
                 case UserRegistrationField.DateOfBirth:
                     errorMessage = !this.delValidateRequiredField(fieldValue) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} is required" : string.Empty;
-                    errorMessage = (errorMessage.IsEmpty() && !this.delValidateDateField(fieldValue, out DateTime dateTime)) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} must be in proper date format" : string.Empty;
+                    errorMessage = (errorMessage.IsEmpty() && !this.delValidateDateField(fieldValue, out DateTime dateTime)) ? $"The field: {Enum.GetName<UserRegistrationField>(userRegistrationField)} must be in proper date format" : errorMessage;
                     break;
                 case UserRegistrationField.PhoneNumber:
                 case UserRegistrationField.AddressLine1:

@@ -16,7 +16,7 @@ namespace ClubMembership.Console.Data
             bool exists;
             using (ClubMembershipDbContext dbContext = new ClubMembershipDbContext())
             {
-                exists = dbContext.Users.Any(user => user.EmailId.GetLowerCaseString() == emailId.GetLowerCaseString());
+                exists = dbContext.Users.Any(user => user.EmailId.Trim().ToLower() == emailId.Trim().ToLower());
             }
             return exists;
         }

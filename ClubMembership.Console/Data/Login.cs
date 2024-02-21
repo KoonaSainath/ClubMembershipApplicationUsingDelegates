@@ -15,8 +15,8 @@ namespace ClubMembership.Console.Data
             User userFromDB = null;
             using (ClubMembershipDbContext dbContext = new ClubMembershipDbContext())
             {
-                userFromDB = dbContext.Users.FirstOrDefault(user => user.EmailId.GetLowerCaseString() == emailId.GetLowerCaseString() 
-                && user.Password == password);
+                userFromDB = dbContext.Users.Where(user => user.EmailId.Trim().ToLower() == emailId.Trim().ToLower() 
+                && user.Password == password).FirstOrDefault();
             }
             return userFromDB;
         }

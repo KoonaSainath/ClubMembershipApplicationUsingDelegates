@@ -18,14 +18,14 @@ namespace ClubMembership.Console.Views
         }
         public IFieldValidator FieldValidator => null;
 
-        public void RunTheView()
+        public async Task RunTheView()
         {
             ConsoleWriters.ClearConsole();
             ConsoleWriters.WriteHeading();
             string welcomeMessage = $"Welcome {user.FirstName} {user.LastName}! You are a proud member of our cycling club membership!";
-            ConsoleThemes.SetTheme(ConsoleTheme.Success);
+            await ConsoleThemes.SetTheme(ConsoleTheme.Success);
             ConsoleWriters.WriteToConsoleWithNewLine(welcomeMessage);
-            ConsoleThemes.SetTheme(ConsoleTheme.Default);
+            await ConsoleThemes.SetTheme(ConsoleTheme.Default);
             System.Console.ReadKey();
         }
     }

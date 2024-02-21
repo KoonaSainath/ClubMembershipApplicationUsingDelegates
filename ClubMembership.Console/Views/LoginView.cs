@@ -14,7 +14,7 @@ namespace ClubMembership.Console.Views
     {
         public IFieldValidator FieldValidator => null;
 
-        public void RunTheView()
+        public async Task RunTheView()
         {
             ConsoleWriters.ClearConsole();
             ConsoleWriters.WriteHeading();
@@ -31,13 +31,13 @@ namespace ClubMembership.Console.Views
             if(user != null)
             {
                 IView welcomeScreenView = new WelcomeScreenView(user);
-                welcomeScreenView.RunTheView();
+                await welcomeScreenView.RunTheView();
             }
             else
             {
-                ConsoleThemes.SetTheme(ConsoleTheme.Failure);
+                await ConsoleThemes.SetTheme(ConsoleTheme.Failure);
                 ConsoleWriters.WriteToConsoleWithNewLine("The user with this email id and password doesn't exist");
-                ConsoleThemes.SetTheme(ConsoleTheme.Default);
+                await ConsoleThemes.SetTheme(ConsoleTheme.Default);
                 System.Console.ReadKey();
             }
         }
