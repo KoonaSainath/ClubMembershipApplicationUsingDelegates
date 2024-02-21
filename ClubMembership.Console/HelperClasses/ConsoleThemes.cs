@@ -14,7 +14,7 @@ namespace ClubMembership.Console.HelperClasses
     }
     public static class ConsoleThemes
     {
-        public static void SetTheme(ConsoleTheme theme)
+        public async static Task SetTheme(ConsoleTheme theme)
         {
             switch (theme)
             {
@@ -27,7 +27,9 @@ namespace ClubMembership.Console.HelperClasses
                     System.Console.BackgroundColor = ConsoleColor.Red;
                     break;
                 default:
+                    //System.Console.WriteLine("testbefore");
                     System.Console.ResetColor();
+                    //System.Console.WriteLine("testafter");
                     break;
             }
         }

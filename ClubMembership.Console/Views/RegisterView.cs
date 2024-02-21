@@ -18,29 +18,30 @@ namespace ClubMembership.Console.Views
         }
         public IFieldValidator FieldValidator { get; set; }
 
-        public void RunTheView()
+        public async Task RunTheView()
         {
-            this.FieldValidator.FieldArray[(int)UserRegistrationField.EmailId] = CollectValidatedFieldValue(UserRegistrationField.EmailId, "Please enter your email id: ");
-            this.FieldValidator.FieldArray[(int)UserRegistrationField.Password] = CollectValidatedFieldValue(UserRegistrationField.Password, "Please set password: ");
-            this.FieldValidator.FieldArray[(int)UserRegistrationField.ConfirmedPassword] = CollectValidatedFieldValue(UserRegistrationField.ConfirmedPassword, "Please re-enter your password to confirm: ");
-            this.FieldValidator.FieldArray[(int)UserRegistrationField.FirstName] = CollectValidatedFieldValue(UserRegistrationField.FirstName, "Please enter your first name: ");
-            this.FieldValidator.FieldArray[(int)UserRegistrationField.LastName] = CollectValidatedFieldValue(UserRegistrationField.LastName, "Please enter your last name: ");
-            this.FieldValidator.FieldArray[(int)UserRegistrationField.DateOfBirth] = CollectValidatedFieldValue(UserRegistrationField.DateOfBirth, "Please enter your date of birth in valid format: ");
-            this.FieldValidator.FieldArray[(int)UserRegistrationField.PhoneNumber] = CollectValidatedFieldValue(UserRegistrationField.PhoneNumber, "Please enter your phone number: ");
-            this.FieldValidator.FieldArray[(int)UserRegistrationField.AddressLine1] = CollectValidatedFieldValue(UserRegistrationField.AddressLine1, "Please enter your address line 1: ");
-            this.FieldValidator.FieldArray[(int)UserRegistrationField.AddressLine2] = CollectValidatedFieldValue(UserRegistrationField.AddressLine2, "Please enter your address line 2: ");
-            this.FieldValidator.FieldArray[(int)UserRegistrationField.City] = CollectValidatedFieldValue(UserRegistrationField.City, "Please enter your city name: ");
-            this.FieldValidator.FieldArray[(int)UserRegistrationField.PostalCode] = CollectValidatedFieldValue(UserRegistrationField.PostalCode, "Please enter postal code: ");
+            this.FieldValidator.FieldArray[(int)UserRegistrationField.EmailId] = await CollectValidatedFieldValue(UserRegistrationField.EmailId, "Please enter your email id: ");
+            this.FieldValidator.FieldArray[(int)UserRegistrationField.Password] = await CollectValidatedFieldValue(UserRegistrationField.Password, "Please set password: ");
+            this.FieldValidator.FieldArray[(int)UserRegistrationField.ConfirmedPassword] = await CollectValidatedFieldValue(UserRegistrationField.ConfirmedPassword, "Please re-enter your password to confirm: ");
+            this.FieldValidator.FieldArray[(int)UserRegistrationField.FirstName] = await CollectValidatedFieldValue(UserRegistrationField.FirstName, "Please enter your first name: ");
+            this.FieldValidator.FieldArray[(int)UserRegistrationField.LastName] = await CollectValidatedFieldValue(UserRegistrationField.LastName, "Please enter your last name: ");
+            this.FieldValidator.FieldArray[(int)UserRegistrationField.DateOfBirth] = await CollectValidatedFieldValue(UserRegistrationField.DateOfBirth, "Please enter your date of birth in valid format: ");
+            this.FieldValidator.FieldArray[(int)UserRegistrationField.PhoneNumber] = await CollectValidatedFieldValue(UserRegistrationField.PhoneNumber, "Please enter your phone number: ");
+            this.FieldValidator.FieldArray[(int)UserRegistrationField.AddressLine1] = await CollectValidatedFieldValue(UserRegistrationField.AddressLine1, "Please enter your address line 1: ");
+            this.FieldValidator.FieldArray[(int)UserRegistrationField.AddressLine2] = await CollectValidatedFieldValue(UserRegistrationField.AddressLine2, "Please enter your address line 2: ");
+            this.FieldValidator.FieldArray[(int)UserRegistrationField.City] = await CollectValidatedFieldValue(UserRegistrationField.City, "Please enter your city name: ");
+            this.FieldValidator.FieldArray[(int)UserRegistrationField.PostalCode] = await CollectValidatedFieldValue(UserRegistrationField.PostalCode, "Please enter postal code: ");
             IRegister register = new Register();
             register.RegisterUser(this.FieldValidator.FieldArray);
-            ConsoleThemes.SetTheme(ConsoleTheme.Success);
-            ConsoleWriters.WriteToConsoleWithNewLine("User registration is successful!");
-            ConsoleThemes.SetTheme(ConsoleTheme.Default);
+            await ConsoleThemes.SetTheme(ConsoleTheme.Success);
+            ConsoleWriters.WriteToConsoleWithNewLine("User registration is successful! Wait here for 3 seconds, we'll navigate you to login screen!");
+            Thread.Sleep(3000);
+            await ConsoleThemes.SetTheme(ConsoleTheme.Default);
             IView loginView = new LoginView();
-            loginView.RunTheView();
+            await loginView.RunTheView();
         }
 
-        private string CollectValidatedFieldValue(UserRegistrationField fieldIndex, string prompt)
+        private async Task<string> CollectValidatedFieldValue(UserRegistrationField fieldIndex, string prompt)
         {
             string errorMessage = string.Empty;
             string value = string.Empty;
@@ -52,15 +53,15 @@ namespace ClubMembership.Console.Views
                 isValid = this.FieldValidator.DelValidateField((int)fieldIndex, value, this.FieldValidator.FieldArray, out errorMessage);
                 if(isValid)
                 {
-                    ConsoleThemes.SetTheme(ConsoleTheme.Success);
+                    await ConsoleThemes.SetTheme(ConsoleTheme.Success);
                     ConsoleWriters.WriteToConsoleWithNewLine("Validated");
-                    ConsoleThemes.SetTheme(ConsoleTheme.Default);
+                    await ConsoleThemes.SetTheme(ConsoleTheme.Default);
                 }
                 else
                 {
-                    ConsoleThemes.SetTheme(ConsoleTheme.Failure);
+                    await ConsoleThemes.SetTheme(ConsoleTheme.Failure);
                     ConsoleWriters.WriteToConsoleWithNewLine(errorMessage);
-                    ConsoleThemes.SetTheme(ConsoleTheme.Default);
+                    await ConsoleThemes.SetTheme(ConsoleTheme.Default);
                 }
             } while (!isValid);
             return value;

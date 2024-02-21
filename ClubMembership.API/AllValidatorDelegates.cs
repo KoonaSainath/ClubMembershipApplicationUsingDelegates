@@ -79,7 +79,7 @@ namespace ClubMembership.API
 
         public static bool ValidateRequiredField(string fieldValue)
         {
-            return !string.IsNullOrEmpty(fieldValue);
+            return !string.IsNullOrEmpty(fieldValue.NullCheckTrim());
         }
         public static bool ValidateStringLength(string fieldValue, int minLength, int maxLength)
         {
